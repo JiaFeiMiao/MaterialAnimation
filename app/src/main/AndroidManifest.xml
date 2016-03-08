@@ -15,16 +15,19 @@
 
         </activity>
 
-        <activity android:name=".demo1.SimpleActivity">
+      <activity android:name=".demo2.RevalActivity">
+          <intent-filter>
+              <action android:name="android.intent.action.MAIN" />
 
-        </activity>
+              <category android:name="android.intent.category.LAUNCHER" />
+          </intent-filter>
+      </activity>
 
         <activity android:name=".demo2.AnimDemoActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+        </activity>
+        <activity android:name=".vectordemo.VectorActivity">
+
         </activity>
     </application>
 

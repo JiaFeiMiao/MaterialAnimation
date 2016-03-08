@@ -2,28 +2,37 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
-    <LinearLayout
+   >
+    <RelativeLayout
+        android:id="@+id/viewRoot"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <ImageView
-            style="@style/view"
-            android:background="@drawable/bg_view"
-            android:src="@drawable/heart"/>
-        <ImageView
-            style="@style/view"
-            android:background="@drawable/bg_view4"
-            android:src="@drawable/heart"/>
-        <ImageView
-            style="@style/view"
-            android:background="@drawable/bg_view2"
-            android:src="@drawable/heart"/>
-        <ImageView
-            style="@style/view"
-            android:background="@drawable/bg_view3"
-            android:src="@drawable/heart"/>
-    </LinearLayout>
+        android:layout_height="match_parent"
+        android:gravity="center|bottom">
+            <ImageView
+                android:id="@+id/ivImage1"
+                style="@style/view"
+                android:background="@drawable/bg_view"
+                android:src="@drawable/vector_heart"/>
+            <ImageView
+                android:id="@+id/ivImage2"
+                style="@style/view"
+                android:background="@drawable/bg_view4"
+                android:layout_toRightOf="@id/ivImage1"
+                android:src="@drawable/vector_heart"/>
+            <ImageView
+                android:id="@+id/ivImage3"
+                style="@style/view"
+                android:background="@drawable/bg_view2"
+                android:layout_toRightOf="@id/ivImage2"
+                android:src="@drawable/vector_heart"/>
+            <ImageView
+                android:id="@+id/ivImage4"
+                style="@style/view"
+                android:background="@drawable/bg_view3"
+                android:layout_toRightOf="@id/ivImage3"
+                android:src="@drawable/vector_heart"/>
+    </RelativeLayout>
+
 
 
 </RelativeLayout>

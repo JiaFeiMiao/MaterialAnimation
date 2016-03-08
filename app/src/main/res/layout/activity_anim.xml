@@ -2,63 +2,75 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/viewGroup"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <View
+            android:id="@+id/view1"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerInParent="true"
+            android:background="@drawable/bg_view">
+        </View>
+
+        <View
+            android:id="@+id/view2"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerInParent="true"
+            android:background="@drawable/bg_view2">
+        </View>
+
+        <View
+            android:id="@+id/view3"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerInParent="true"
+            android:background="@drawable/bg_view3">
+        </View>
+
+        <View
+            android:id="@+id/view4"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerInParent="true"
+            android:background="@drawable/bg_view4">
+        </View>
+
+        <View
+            android:id="@+id/view5"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerInParent="true"
+            android:background="@drawable/bg_view5">
+        </View>
+
+        <Button
+            android:id="@+id/button1"
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="20dp"
+            android:text="Anim1" />
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_margin="20dp"
+            android:text="Anim2" />
+    </RelativeLayout>
 
     <!--
     红色叹号的原因:在Android Studio1.4之后对于View的预览效果，如果是图片，那么会展示出来，如果是
     drawable文件则无法预览，因此会出现红色警告，在后面的版本中应该会予以修复
     -->
-    <View
-        android:id="@+id/view1"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_centerInParent="true"
-        android:background="@drawable/bg_view"></View>
 
-    <View
-        android:id="@+id/view2"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_centerInParent="true"
-        android:background="@drawable/bg_view2"></View>
-
-    <View
-        android:id="@+id/view3"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_centerInParent="true"
-        android:background="@drawable/bg_view3"></View>
-
-    <View
-        android:id="@+id/view4"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_centerInParent="true"
-        android:background="@drawable/bg_view4"></View>
-
-    <View
-        android:id="@+id/view5"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_centerInParent="true"
-        android:background="@drawable/bg_view5"></View>
-
-    <Button
-        android:id="@+id/button1"
-        android:layout_width="120dp"
-        android:layout_height="40dp"
-        android:layout_alignParentBottom="true"
-        android:layout_margin="20dp"
-        android:text="Anim1" />
-
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="120dp"
-        android:layout_height="40dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_margin="20dp"
-        android:text="Anim2" />
 
 </RelativeLayout>

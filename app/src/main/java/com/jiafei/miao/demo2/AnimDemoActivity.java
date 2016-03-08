@@ -1,17 +1,16 @@
 package com.jiafei.miao.demo2;
 
-import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
-import android.animation.TypeEvaluator;
-import android.animation.ValueAnimator;
-import android.graphics.PointF;
+import android.animation.Animator;
+import android.annotation.TargetApi;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.animation.AccelerateInterpolator;
+import android.view.ViewAnimationUtils;
 import android.view.animation.LinearInterpolator;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 
 import com.jiafei.miao.R;
 
@@ -27,12 +26,13 @@ public class AnimDemoActivity extends AppCompatActivity {
     private View view5;
 
     private boolean open = true;
+    private RelativeLayout viewGroup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_anim);
-
+        viewGroup = (RelativeLayout) findViewById(R.id.viewGroup);
         view1 = findViewById(R.id.view1);
         view2 = findViewById(R.id.view2);
         view3 = findViewById(R.id.view3);
@@ -43,95 +43,110 @@ public class AnimDemoActivity extends AppCompatActivity {
         Button button2 = (Button) findViewById(R.id.button2);
 
         button1.setOnClickListener(new View.OnClickListener() {
+            @TargetApi(Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onClick(View v) {
-                if (open) {
-                    ObjectAnimator anim01 = ObjectAnimator.ofFloat(view2, "translationX", 0, 180);
-                    ObjectAnimator anim02 = ObjectAnimator.ofFloat(view3, "translationX", 0, -180);
-                    ObjectAnimator anim03 = ObjectAnimator.ofFloat(view4, "translationY", 0, 180);
-                    ObjectAnimator anim04 = ObjectAnimator.ofFloat(view5, "translationY", 0, -180);
-
-                    AnimatorSet set = new AnimatorSet();
-                    set.setDuration(200);
-                    set.setInterpolator(new AccelerateInterpolator());
-                    set.playTogether(anim01, anim02, anim03, anim04);
-                    set.start();
-                    open = false;
-                } else {
-                    ObjectAnimator anim01 = ObjectAnimator.ofFloat(view2, "translationX", 180, 0);
-                    ObjectAnimator anim02 = ObjectAnimator.ofFloat(view3, "translationX", -180, 0);
-                    ObjectAnimator anim03 = ObjectAnimator.ofFloat(view4, "translationY", 180, 0);
-                    ObjectAnimator anim04 = ObjectAnimator.ofFloat(view5, "translationY", -180, 0);
-
-                    AnimatorSet set = new AnimatorSet();
-                    set.setDuration(200);
-                    set.setInterpolator(new AccelerateInterpolator());
-                    set.playTogether(anim01, anim02, anim03, anim04);
-                    set.start();
-                    open = true;
-                }
+                int x = (viewGroup.getLeft() + viewGroup.getRight()) /2;
+                int y = (viewGroup.getTop() + viewGroup.getRight()) /2;
+                Animator circularReveal = ViewAnimationUtils.createCircularReveal(viewGroup, 0, 0, 0, viewGroup.getHeight()/2);
+                circularReveal.setInterpolator(new LinearInterpolator());
+                circularReveal.setDuration(500);
+                viewGroup.setBackgroundColor(getResources().getColor(R.color.colorAccent));
+                circularReveal.start();
 
             }
         });
 
-        button2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!open) {
-                    //闪烁
-                    ObjectAnimator anim01 = ObjectAnimator.ofFloat(view2, "alpha", 0, 50, 100, 0, 50, 100, 0, 50, 100);
-                    ObjectAnimator anim02 = ObjectAnimator.ofFloat(view3, "alpha", 0, 50, 100, 0, 50, 100, 0, 50, 100);
-                    ObjectAnimator anim03 = ObjectAnimator.ofFloat(view4, "alpha", 0, 50, 100, 0, 50, 100, 0, 50, 100);
-                    ObjectAnimator anim04 = ObjectAnimator.ofFloat(view5, "alpha", 0, 50, 100, 0, 50, 100, 0, 50, 100);
-
-                    AnimatorSet set = new AnimatorSet();
-                    set.setDuration(2000);
-                    set.setInterpolator(new LinearInterpolator());
-                    set.playTogether(anim01, anim02, anim03, anim04);
-                    set.start();
-                } else {
-                    //抛物线
-                    ValueAnimator valueAnimator = new ValueAnimator();
-                    valueAnimator.setDuration(3000);
-                    valueAnimator.setObjectValues(new PointF(0, 0));
-                    valueAnimator.setInterpolator(new LinearInterpolator());
-                    valueAnimator.setEvaluator(new TypeEvaluator<PointF>() {
-                        // fraction = t / duration
-                        @Override
-                        public PointF evaluate(float fraction, PointF startValue,
-                                               PointF endValue) {
-                            // x方向200px/s ，则y方向0.5 * 10 * t
-                            PointF point = new PointF();
-                            point.x = 200 * fraction * 3;
-                            point.y = 0.5f * 200 * (fraction * 3) * (fraction * 3);
-                            return point;
-                        }
-                    });
-
-                    valueAnimator.start();
-                    valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                        @Override
-                        public void onAnimationUpdate(ValueAnimator animation) {
-                            PointF point = (PointF) animation.getAnimatedValue();
-                            view1.setX(point.x);
-                            view1.setY(point.y);
-
-                        }
-                    });
-//                    ObjectAnimator anim01 = ObjectAnimator.ofFloat(view2, "rotation", 90);
-//                    ObjectAnimator anim02 = ObjectAnimator.ofFloat(view3, "rotation", 90);
-//                    ObjectAnimator anim03 = ObjectAnimator.ofFloat(view4, "rotation", 90);
-//                    ObjectAnimator anim04 = ObjectAnimator.ofFloat(view5, "rotation", 90);
+//        button1.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (open) {
+//                    ObjectAnimator anim01 = ObjectAnimator.ofFloat(view2, "translationX", 0, 180);
+//                    ObjectAnimator anim02 = ObjectAnimator.ofFloat(view3, "translationX", 0, -180);
+//                    ObjectAnimator anim03 = ObjectAnimator.ofFloat(view4, "translationY", 0, 180);
+//                    ObjectAnimator anim04 = ObjectAnimator.ofFloat(view5, "translationY", 0, -180);
+//
 //                    AnimatorSet set = new AnimatorSet();
 //                    set.setDuration(200);
-//
 //                    set.setInterpolator(new AccelerateInterpolator());
 //                    set.playTogether(anim01, anim02, anim03, anim04);
 //                    set.start();
+//                    open = false;
+//                } else {
+//                    ObjectAnimator anim01 = ObjectAnimator.ofFloat(view2, "translationX", 180, 0);
+//                    ObjectAnimator anim02 = ObjectAnimator.ofFloat(view3, "translationX", -180, 0);
+//                    ObjectAnimator anim03 = ObjectAnimator.ofFloat(view4, "translationY", 180, 0);
+//                    ObjectAnimator anim04 = ObjectAnimator.ofFloat(view5, "translationY", -180, 0);
+//
+//                    AnimatorSet set = new AnimatorSet();
+//                    set.setDuration(200);
+//                    set.setInterpolator(new AccelerateInterpolator());
+//                    set.playTogether(anim01, anim02, anim03, anim04);
+//                    set.start();
+//                    open = true;
+//                }
+//
+//            }
+//        });
 
-                }
-            }
-        });
+//        button2.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (!open) {
+//                    //闪烁
+//                    ObjectAnimator anim01 = ObjectAnimator.ofFloat(view2, "alpha", 0, 50, 100, 0, 50, 100, 0, 50, 100);
+//                    ObjectAnimator anim02 = ObjectAnimator.ofFloat(view3, "alpha", 0, 50, 100, 0, 50, 100, 0, 50, 100);
+//                    ObjectAnimator anim03 = ObjectAnimator.ofFloat(view4, "alpha", 0, 50, 100, 0, 50, 100, 0, 50, 100);
+//                    ObjectAnimator anim04 = ObjectAnimator.ofFloat(view5, "alpha", 0, 50, 100, 0, 50, 100, 0, 50, 100);
+//
+//                    AnimatorSet set = new AnimatorSet();
+//                    set.setDuration(2000);
+//                    set.setInterpolator(new LinearInterpolator());
+//                    set.playTogether(anim01, anim02, anim03, anim04);
+//                    set.start();
+//                } else {
+//                    //抛物线
+//                    ValueAnimator valueAnimator = new ValueAnimator();
+//                    valueAnimator.setDuration(3000);
+//                    valueAnimator.setObjectValues(new PointF(0, 0));
+//                    valueAnimator.setInterpolator(new LinearInterpolator());
+//                    valueAnimator.setEvaluator(new TypeEvaluator<PointF>() {
+//                        // fraction = t / duration
+//                        @Override
+//                        public PointF evaluate(float fraction, PointF startValue,
+//                                               PointF endValue) {
+//                            // x方向200px/s ，则y方向0.5 * 10 * t
+//                            PointF point = new PointF();
+//                            point.x = 200 * fraction * 3;
+//                            point.y = 0.5f * 200 * (fraction * 3) * (fraction * 3);
+//                            return point;
+//                        }
+//                    });
+//
+//                    valueAnimator.start();
+//                    valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+//                        @Override
+//                        public void onAnimationUpdate(ValueAnimator animation) {
+//                            PointF point = (PointF) animation.getAnimatedValue();
+//                            view1.setX(point.x);
+//                            view1.setY(point.y);
+//
+//                        }
+//                    });
+////                    ObjectAnimator anim01 = ObjectAnimator.ofFloat(view2, "rotation", 90);
+////                    ObjectAnimator anim02 = ObjectAnimator.ofFloat(view3, "rotation", 90);
+////                    ObjectAnimator anim03 = ObjectAnimator.ofFloat(view4, "rotation", 90);
+////                    ObjectAnimator anim04 = ObjectAnimator.ofFloat(view5, "rotation", 90);
+////                    AnimatorSet set = new AnimatorSet();
+////                    set.setDuration(200);
+////
+////                    set.setInterpolator(new AccelerateInterpolator());
+////                    set.playTogether(anim01, anim02, anim03, anim04);
+////                    set.start();
+//
+//                }
+//            }
+//        });
     }
 
     @Override

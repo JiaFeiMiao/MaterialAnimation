@@ -32,7 +32,9 @@ public class RevalActivity extends AppCompatActivity implements View.OnClickList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+//        requestWindowFeature(TRANSL)
         setContentView(R.layout.activity_reval);
+        setEnterAndExitTranslation();
         viewRoot = (RelativeLayout) findViewById(R.id.viewRoot);
         iv1 = (ImageView) findViewById(R.id.ivImage1);
         iv2 = (ImageView) findViewById(R.id.ivImage2);
@@ -43,6 +45,9 @@ public class RevalActivity extends AppCompatActivity implements View.OnClickList
         iv2.setOnClickListener(this);
         iv3.setOnClickListener(this);
         iv4.setOnClickListener(this);
+    }
+
+    private void setEnterAndExitTranslation(){
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
@@ -82,7 +87,6 @@ public class RevalActivity extends AppCompatActivity implements View.OnClickList
                 set.addListener(new Animator.AnimatorListener() {
                     @Override
                     public void onAnimationStart(Animator animation) {
-
                     }
 
                     @Override

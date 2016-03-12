@@ -5,7 +5,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.transition.Fade;
-import android.transition.Slide;
 import android.transition.Transition;
 import android.transition.TransitionInflater;
 import android.view.View;
@@ -55,6 +54,6 @@ public class TranslationActivity2 extends AppCompatActivity{
         }
         getWindow().setEnterTransition(transition);
 
-        getWindow().setExitTransition(new Slide());
+        getWindow().setExitTransition(new Fade());
     }
 }

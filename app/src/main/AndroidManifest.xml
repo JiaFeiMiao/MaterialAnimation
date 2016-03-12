@@ -7,7 +7,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme.NoActionBar">
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
@@ -16,11 +16,6 @@
         </activity>
 
       <activity android:name=".demo2.RevalActivity">
-          <intent-filter>
-              <action android:name="android.intent.action.MAIN" />
-
-              <category android:name="android.intent.category.LAUNCHER" />
-          </intent-filter>
       </activity>
 
         <activity android:name=".demo2.AnimDemoActivity">
@@ -29,6 +24,18 @@
         <activity android:name=".vectordemo.VectorActivity">
 
         </activity>
+
+        <activity android:name=".translation.TranslationActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".translation.TranslationActivity1"></activity>
+        <activity android:name=".translation.TranslationActivity2"></activity>
+        <activity android:name=".translation.TranslationActivity3"></activity>
     </application>
 
 </manifest>
